@@ -56,98 +56,109 @@ pip install numpy
 pip install torch torchvision
 pip install matplotlib
 pip install jupyter
-pip install scikit-learn
 ```
 
 Or install all at once:
 
 ```bash
-pip install numpy torch torchvision matplotlib jupyter scikit-learn
+pip install numpy torch torchvision matplotlib jupyter
 ```
 
-### Clone the Repository
+## 📝 Usage
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Nakshatra1729yuvi/CL-EWC--Elastic_Weight_Consoloidation-.git
 cd CL-EWC--Elastic_Weight_Consoloidation-
 ```
 
-## 💻 Usage
+### 2. Open the Jupyter Notebook
 
-### Running the Jupyter Notebook
+```bash
+jupyter notebook Elastic_Weight_Consolidation.ipynb
+```
 
-1. **Launch Jupyter Notebook**:
-   ```bash
-   jupyter notebook
+### 3. Run the Cells
+
+Execute the notebook cells sequentially to:
+- Load and preprocess datasets (FashionMNIST and MNIST)
+- Define the neural network architecture
+- Train the model on Task A (FashionMNIST)
+- Calculate Fisher Information Matrix
+- Train on Task B (MNIST) with and without EWC
+- Visualize and compare results
+
+## 🧩 Understanding the Code
+
+### Key Components
+
+1. **Network Architecture**
+   ```python
+   class SimpleMLP(nn.Module):
+       # A simple Multi-Layer Perceptron
    ```
 
-2. **Open the EWC Notebook**:
-   - Navigate to the repository folder in your browser
-   - Click on the `.ipynb` file to open it
+2. **Fisher Information Calculation**
+   ```python
+   def compute_fisher_information(model, data_loader, criterion):
+       # Calculates importance of each weight
+   ```
 
-3. **Run the Cells**:
-   - Execute each cell sequentially by pressing `Shift + Enter`
-   - Follow the inline comments and markdown explanations
+3. **EWC Loss Function**
+   ```python
+   def ewc_loss(model, fisher_dict, optimal_params, lambda_ewc):
+       # Adds penalty for changing important weights
+   ```
 
-4. **Experiment**:
-   - Modify hyperparameters (learning rate, λ value, number of epochs)
-   - Try different network architectures
-   - Test on different datasets
-
-### Key Parameters to Adjust
-
-- **λ (lambda)**: Controls the importance of old task knowledge (typical values: 0-10000)
-  - Higher values = stronger protection of old weights
-  - Lower values = more flexibility for new tasks
-
-- **Learning Rate**: Affects how quickly the model adapts to new tasks
-
-- **Number of Epochs**: Training duration for each task
-
-## 📚 Understanding the Code
-
-The notebook typically includes:
-
-1. **Data Loading**: Preparing datasets for sequential tasks
-2. **Model Definition**: Neural network architecture
-3. **Fisher Information Calculation**: Computing importance weights after each task
-4. **EWC Training Loop**: Training with the EWC regularization term
-5. **Evaluation**: Testing performance on all learned tasks
-6. **Visualization**: Plotting results and comparisons
+4. **Training with EWC**
+   ```python
+   def train_with_ewc(model, train_loader, criterion, optimizer, 
+                     fisher_dict, optimal_params, lambda_ewc):
+       # Training loop with EWC regularization
+   ```
 
 ## 🎯 Use Cases
 
-- **Robotics**: Learning new skills without forgetting basic motor functions
-- **Natural Language Processing**: Adding new language capabilities while maintaining existing ones
-- **Computer Vision**: Learning to recognize new objects while remembering old ones
-- **Personalized AI**: Adapting models to individual users over time
-- **Edge Devices**: Continuous learning on resource-constrained devices
+This implementation is perfect for:
 
-## 📊 Expected Results
+- 🎓 **Educational purposes**: Learn how EWC works in practice
+- 🔬 **Research projects**: Use as a baseline for continual learning experiments
+- 🏗️ **Building blocks**: Integrate EWC into your own projects
+- 📚 **Understanding theory**: See mathematical concepts in action
 
-When running the notebook, you should observe:
+## 🌈 Expected Results
 
-- ✅ **With EWC**: Model maintains performance on Task A while learning Task B
-- ❌ **Without EWC**: Model forgets Task A when learning Task B (catastrophic forgetting)
+When you run the notebook, you should observe:
+
+1. **Task A Performance**: The model learns FashionMNIST effectively
+2. **Without EWC**: Performance on Task A degrades significantly after learning Task B
+3. **With EWC**: Performance on Task A is better preserved while still learning Task B
+4. **Visualizations**: Clear graphs showing the difference in catastrophic forgetting
 
 ## 🤝 Contributing
 
-Contributions are welcome! 🎉 Here's how you can help:
+Contributions are welcome! If you'd like to improve this project:
 
 1. 🍴 Fork the repository
-2. 🌿 Create a new branch (`git checkout -b feature/AmazingFeature`)
-3. ✍️ Make your changes
-4. 💾 Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-5. 📤 Push to the branch (`git push origin feature/AmazingFeature`)
-6. 🔃 Open a Pull Request
+2. 🔧 Create a feature branch (`git checkout -b feature/YourFeature`)
+3. 💾 Commit your changes (`git commit -m 'Add some feature'`)
+4. 📤 Push to the branch (`git push origin feature/YourFeature`)
+5. 🔀 Open a Pull Request
 
 ### Ideas for Contribution
 
-- 🆕 Implement additional continual learning algorithms (SI, MAS, LwF)
-- 📝 Add more comprehensive documentation
+- 📚 Add more continual learning scenarios
 - 🧪 Create additional experiments with different datasets
 - 🎨 Improve visualizations
 - 🐛 Fix bugs or optimize code
+
+## Results 📊
+
+**Final Validation Accuracies:**
+- FashionMNIST (without EWC): **86.34%**
+- FashionMNIST (after EWC): **62.90%**
+- MNIST (after EWC): **91.16%**
 
 ## 📄 License
 
